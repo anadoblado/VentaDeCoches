@@ -3,12 +3,15 @@ package visual;
 import java.awt.Color;
 
 
+
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,8 +40,8 @@ public class PanelGestionCliente extends JPanel {
 	JTextField jtfDniNie = new JTextField(15);
 	JTextField jtfNombre = new JTextField(40);
 	JTextField jtfApellidos = new JTextField(40);
-	JTextField jtfFechaNac = new JTextField(40);
-	JTextField jtfLocalidad = new JTextField(40);
+	JTextField jtfFechaNac = new JTextField(12);
+	JTextField jtfLocalidad = new JTextField(20);
 	JTextField jtfActivo = new JTextField(6);
 	
 	Cliente actual = null;
@@ -245,10 +248,12 @@ public class PanelGestionCliente extends JPanel {
 	
 	
 	/**
+	 * @throws ParseException 
 	 * 
 	 */
-	private void guardar () {
+	private void guardar () throws ParseException {
 		Cliente nuevoRegistro = new Cliente();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if (this.jtfId.getText().trim().equals("")) 
 			nuevoRegistro.setId(0);
@@ -258,9 +263,9 @@ public class PanelGestionCliente extends JPanel {
 		nuevoRegistro.setDniNie(this.jtfDniNie.getText());
 		nuevoRegistro.setNombre(this.jtfNombre.getText());
 		nuevoRegistro.setApellidos(this.jtfApellidos.getText());
-		nuevoRegistro.setFechaNac(this.jtfFechaNac.getText());
+		nuevoRegistro.setFechaNac(sdf.parse(this.jtfFechaNac.getText()));
 		nuevoRegistro.setLocalidad(this.jtfLocalidad.getText());
-		nuevoRegistro.setActivo(this.jtfActivo.getText());
+		nuevoRegistro.setActivo(Boolean.getBoolean(this.jtfActivo.getText()));
 		
 		if (nuevoRegistro.getId() == 0) {
 			ClienteControlador.getControlador().persist(nuevoRegistro);
@@ -328,8 +333,13 @@ public class PanelGestionCliente extends JPanel {
 					obtenido = ClienteControlador.getControlador().findLast();
 				if (funcion == NEW) 
 					nuevo();
-				if (funcion == SAVE) 
-					guardar();
+				if (funcion == SAVE)
+					try {
+						guardar();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				if (funcion == REMOVE) 
 					obtenido = eliminar();
 				
@@ -345,12 +355,13 @@ public class PanelGestionCliente extends JPanel {
 	 * 
 	 */
 	private void cargarDatosActual () {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (this.actual != null) {
 			this.jtfId.setText("" + this.actual.getId());
 			this.jtfDniNie.setText(this.actual.getDniNie());
 			this.jtfNombre.setText(this.actual.getNombre());
 			this.jtfApellidos.setText(this.actual.getApellidos());
-			this.jtfFechaNac.setText(this.actual.getFechaNac());
+			this.jtfFechaNac.setText(sdf.format(this.actual.getFechaNac()));
 			this.jtfLocalidad.setText(this.actual.getLocalidad());
 		}
 	}

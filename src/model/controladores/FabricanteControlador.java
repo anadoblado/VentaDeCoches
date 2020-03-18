@@ -123,14 +123,14 @@ public class FabricanteControlador extends model.Controlador {
 	 * @param coche
 	 * @return
 	 */
-	public boolean exists(Fabricante coche) {
+	public boolean exists(Fabricante fab) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		
 		boolean ok = true;
 		try {
 			Query q = em.createNativeQuery("SELECT * FROM tutorialjavacoches.coche where id = ?", Fabricante.class);
-			q.setParameter(1, coche.getId());
-			coche = (Fabricante) q.getSingleResult(); 
+			q.setParameter(1, fab.getId());
+			fab = (Fabricante) q.getSingleResult(); 
 		}
 		catch (NoResultException ex) {
 			ok = false;
