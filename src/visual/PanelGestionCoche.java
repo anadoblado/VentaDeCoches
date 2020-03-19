@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.Color;
 
+
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -229,6 +230,7 @@ public class PanelGestionCoche extends JPanel {
 			this.jtfId.setText("" + this.actual.getId());
 			this.jtBastidor.setText(this.actual.getBastidor());
 			this.jtfColor.setText(this.actual.getColor());
+			this.jtfModelo.setText(this.actual.getModelo());
 			this.jcbFabricante.setSelectedItem(this.actual.getFabricante());
 		}
 		
@@ -247,7 +249,7 @@ public class PanelGestionCoche extends JPanel {
 			if(nuevoAMostrar == null) {
 				nuevoAMostrar = CocheControlador.getControlador().findNext(actual);
 			}
-			FabricanteControlador.getControlador().remove(actual);
+			CocheControlador.getControlador().remove(actual);
 			JOptionPane.showMessageDialog(this, "Eliminado correctamente");
 			
 			if(nuevoAMostrar != null) {
@@ -281,10 +283,10 @@ public class PanelGestionCoche extends JPanel {
 		nuevoRegistro.setFabricante((Fabricante) this.jcbFabricante.getSelectedItem());
 		
 		if (nuevoRegistro.getId() == 0) {
-			FabricanteControlador.getControlador().persist(nuevoRegistro);
+			CocheControlador.getControlador().persist(nuevoRegistro);
 		}
 		else {
-			FabricanteControlador.getControlador().merge(nuevoRegistro);
+			CocheControlador.getControlador().merge(nuevoRegistro);
 		}
 		this.jtfId.setText("" + nuevoRegistro.getId());
 		JOptionPane.showMessageDialog(this, "Guardado correctamente");

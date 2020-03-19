@@ -38,7 +38,7 @@ public class PanelGestionCliente extends JPanel {
 	
 	JTextField jtfId = new JTextField(5);
 	JTextField jtfDniNie = new JTextField(15);
-	JTextField jtfNombre = new JTextField(40);
+	JTextField jtfNombre = new JTextField(10);
 	JTextField jtfApellidos = new JTextField(40);
 	JTextField jtfFechaNac = new JTextField(12);
 	JTextField jtfLocalidad = new JTextField(20);
@@ -125,34 +125,34 @@ public class PanelGestionCliente extends JPanel {
 		c.gridx = 0;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.EAST;
-		this.add(new JLabel("Fecha de nacimiento"));
+		this.add(new JLabel("Fecha de nacimiento"), c);
 		
 		c.gridx = 1;
 		c.gridy = 5;
 		c.anchor = GridBagConstraints.WEST;
-		this.add(jtfFechaNac);
+		this.add((jtfFechaNac), c);
 		
 		// Incluir localidad
 		c.gridx = 0;
 		c.gridy = 6;
 		c.anchor = GridBagConstraints.EAST;
-		this.add(new JLabel("Localidad"));
+		this.add(new JLabel("Localidad"), c);
 		
 		c.gridx = 1;
 		c.gridy = 6;
 		c.anchor = GridBagConstraints.WEST;
-		this.add(jtfLocalidad);
+		this.add((jtfLocalidad), c);
 		
 		// Incluir activo
 		c.gridx = 0;
 		c.gridy = 7;
 		c.anchor = GridBagConstraints.EAST;
-		this.add(new JLabel("Activo"));
+		this.add(new JLabel("Activo"), c);
 		
 		c.gridx = 1;
 		c.gridy = 7;
 		c.anchor = GridBagConstraints.WEST;
-		this.add(jtfActivo);
+		this.add((jtfActivo), c);
 		
 		
 		c.gridx = 0;
@@ -363,6 +363,7 @@ public class PanelGestionCliente extends JPanel {
 			this.jtfApellidos.setText(this.actual.getApellidos());
 			this.jtfFechaNac.setText(sdf.format(this.actual.getFechaNac()));
 			this.jtfLocalidad.setText(this.actual.getLocalidad());
+			this.jtfActivo.setText(Boolean.toString(this.actual.getActivo()));
 		}
 	}
 }
