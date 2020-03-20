@@ -118,4 +118,21 @@ public class Cliente extends Entidad implements Serializable {
 		return venta;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nombre + ", " + apellidos;
+	}
+	
+	public boolean equals(Object obj) {
+		Cliente c = (Cliente) obj;
+		if (this.id == c.id) {
+			return true;
+		} 
+		
+		return false;
+		
+	}
+	
+
 }

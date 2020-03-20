@@ -18,6 +18,7 @@ import utils.CacheImagenes;
 
 public class JTabbedPaneGestion extends JTabbedPane {
 
+	public static JTabbedPaneGestion llamada = null;
 
 	/**
 	 * 
@@ -26,12 +27,21 @@ public class JTabbedPaneGestion extends JTabbedPane {
 	public JTabbedPaneGestion (){
 	
 		ImageIcon icono = CacheImagenes.getCacheImagenes().getIcono("duke1-32x32.png");
-		
+	
+	
 		this.addTab("Concesionario", icono, new PanelGestionConcesionario(), "Concesionario");
 		this.addTab("Fabricante", icono, new PanelGestionFabricante(), "Fabricante");
 		this.addTab("Cliente", icono, new PanelGestionCliente(), "Cliente");
 		this.addTab("Coche", icono, new PanelGestionCoche(), "Coche");
+		this.addTab("Venta", icono, new PanelGestionVenta(), "Venta");
 		
 		this.setSelectedIndex(0);  
 	}	
+	
+	public static JTabbedPaneGestion getJTabbedPaneGestion() {
+		if (llamada == null) {
+			llamada = new JTabbedPaneGestion();
+		}
+		return llamada;
+	}
 }

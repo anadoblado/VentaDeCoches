@@ -1,12 +1,27 @@
 package visual;
 
+import java.awt.BorderLayout;
+
 import java.awt.Dimension;
+import java.awt.MenuBar;
+
+import javax.swing.*;
+
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+
 
 import utils.Apariencia;
 import utils.CacheImagenes;
@@ -19,6 +34,9 @@ public class VentanaPrincipal extends JFrame {
 
 	private CacheImagenes cacheImagenes;
 	public static BufferedImage iconoApp;
+	
+	static JTabbedPaneGestion jTabbedPane = new JTabbedPaneGestion();
+	
 
 	// Establecer la apariencia típica de Windows
 	static {
@@ -40,11 +58,42 @@ public class VentanaPrincipal extends JFrame {
 		agregarGestionCierreAplicacion();
 		
 		// Construcción elementos básicos sobre el ContentPanel
-		this.setContentPane(new JTabbedPaneGestion());
+		//this.setContentPane(new JTabbedPaneGestion());
+		this.setJMenuBar(new Menu());
+		this.add(new ToolBar(), BorderLayout.NORTH);
+		this.getContentPane().add(jTabbedPane, BorderLayout.CENTER);
+		
+		// Añadir el MenuBar
+		//this.setJMenuBar(getJMyMenuBar());
 	}
 
 	
+	
 		
+	private JMenuBar getJMyMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menuGestion = new JMenu("Desplegar Gestión");
+		
+		String opciones[] = new String[] {"Concesionario", "Fabricante", "Cliente", "Coche", "Venta" };
+		for (int i = 0; i < opciones.length; i++) {
+			final int iFinal = i;
+			JMenuItem item = new JMenuItem(opciones[i]);
+			item.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					jTabbedPane.setSelectedIndex(iFinal);
+					
+				}
+			});
+			menuGestion.add(item);
+		}
+		menuBar.add(menuGestion);
+		return menuBar;
+	}
+
+
+
+
 	/**
 	 * 
 	 */

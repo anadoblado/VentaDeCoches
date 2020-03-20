@@ -85,4 +85,21 @@ public class Concesionario extends Entidad implements Serializable {
 		return venta;
 	}
 
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	public boolean equals(Object obj) {
+		Concesionario c = (Concesionario) obj;
+		if (this.id == c.id) {
+			return true;
+		} 
+		
+		return false;
+		
+	}
+	
+	
+
 }
